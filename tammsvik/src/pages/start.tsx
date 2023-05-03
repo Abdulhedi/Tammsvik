@@ -1,7 +1,6 @@
 import React from "react";
 import logo from "../assets/Knowit_Hands.gif";
 
-import { useNavigate } from "react-router";
 const Start: React.FC<any> = () => {
   return (
     <div>

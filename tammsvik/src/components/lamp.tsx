@@ -41,7 +41,7 @@ const Lamp: React.FC<any> = (props: LampProps) => {
           <button onClick={() => handleLampClick(lampColour.green)}>
             Grön
           </button>
-          <button onClick={() => handleLampClick(lampColour.red)}>Grön</button>
+          <button onClick={() => handleLampClick(lampColour.red)}>Röd</button>
           <button onClick={() => handleLampClick(lampColour.black)}>
             Stäng av
           </button>

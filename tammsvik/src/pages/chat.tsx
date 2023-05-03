@@ -25,7 +25,7 @@ export default function Chat(): JSX.Element {
       setAnimalInput("");
     } catch (error) {
       console.error(error);
-      alert(error.message);
+      // alert(error.message);
     }
     setLoading(false);
   }
