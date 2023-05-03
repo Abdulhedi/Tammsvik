@@ -1,4 +1,4 @@
-const hueEndPoint: string = `http://192.168.1.151/api/2H84zV4ID7bicnKBpqXC5ooxBxorCE9XmVxnj05I`;
+const hueEndPoint: string = `http://192.168.1.151/api/szgXak31FwYPevwnWrsVqLuJnx0TEL9W-K0cGxG8`;
 
 async function putLamp(action: string, body: any) {
   try {
