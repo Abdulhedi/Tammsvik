@@ -1,43 +1,65 @@
-import React, { useEffect, useState } from "react";
-import { askQuestion } from "../helpers/chatHelper";
+import React, { useState } from "react";
+import { CallChatGPT } from "../helpers/chatGPTService";
+import styles from "./chat.module.css";
 
-const Chat: React.FC<any> = () => {
-  const [output, setOutput] = useState<string>("");
-  const [response, setResponse] = useState<string>("");
-  const [question, setQuestion] = useState<string>("");
-  const handleAskQuestion = () => {
-    setOutput(`${output} \n Me: ${question}`);
+export default function Chat(): JSX.Element {
+  const [animalInput, setAnimalInput] = useState<string>("");
+  const [result, setResult] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
-    const data = askQuestion(question);
+  async function onSubmit(
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> {
+    setLoading(true);
+    event.preventDefault();
+    try {
+      const response = await CallChatGPT(animalInput);
 
-    data.then((d: any) => {
-      if (d) {
-        d.choices && setResponse(d.choices[0].message.content);
-      } else {
-        setResponse("Error...");
+      const data = response.data;
+      if (response.status !== 200) {
+        throw data.error ||
+          new Error(`Request failed with status ${response.status}`);
       }
-    });
-  };
 
-  useEffect(() => {
-    if (response) setOutput(`${output} \n Chat GPT: ${response}`);
-  }, [response]);
-
+      setResult(data.result);
+      setAnimalInput("");
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+    setLoading(false);
+  }
   return (
-    <div className={"chatWrapper"}>
-      <h1>Chat GPT exempel</h1>
-      <textarea id={"response"} disabled value={output}></textarea>
-      <input
-        type="text"
-        id={"question"}
-        placeholder="Skriv din fråga här..."
-        onKeyUp={(e) => {
-          setQuestion(e.currentTarget.value);
-        }}
-      />
-      <button onClick={() => handleAskQuestion()}>Fråga!</button>
+    <div>
+      <main className={styles.main}>
+        {loading ? (
+          <svg className={styles.spinner} viewBox="0 0 50 50">
+            <circle
+              className={styles.path}
+              cx="25"
+              cy="25"
+              r="20"
+              fill="none"
+              strokeWidth="5"
+            ></circle>
+          </svg>
+        ) : (
+          <img src="/dog.png" className={styles.icon} />
+        )}
+        <h3>Name my pet</h3>
+        <form onSubmit={onSubmit}>
+          <input
+            type="text"
+            name="animal"
+            placeholder="Enter an animal"
+            value={animalInput}
+            onChange={(e) => setAnimalInput(e.target.value)}
+          />
+          {/* <input type="checkbox"/> */}
+          <input type="submit" value="Generate names" />
+        </form>
+        <div className={styles.result}>{result}</div>
+      </main>
     </div>
   );
-};
-
-export default Chat;
+}
