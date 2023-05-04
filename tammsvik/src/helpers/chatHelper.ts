@@ -1,4 +1,3 @@
-const key: string = "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";
 export async function askQuestion(question: string) {
   try {
     let results = await fetch(`https://api.openai.com/v1/completions`, {
@@ -6,7 +5,7 @@ export async function askQuestion(question: string) {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer  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`,
+        Authorization: `Bearer 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`,
       },
       body: JSON.stringify({
         model: "text-davinci-003",
