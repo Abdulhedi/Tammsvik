@@ -7,16 +7,16 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-export interface ChatGPTResult  {
+export interface ChatGPTResult {
     status?: number;
     data: {
-      result?: string;
-      error?: {
-        message?: string;
-      };
+        result?: string;
+        error?: {
+            message?: string;
+        };
     };
-  };
-  
+};
+
 
 export async function CallChatGPT(input: string, generateAnimalPrompt = true): Promise<ChatGPTResult> {
     let result: ChatGPTResult = { data: {} };
@@ -31,14 +31,27 @@ export async function CallChatGPT(input: string, generateAnimalPrompt = true): P
     }
 
     try {
-        const completion = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: generateAnimalPrompt ? generatePrompt(input) : input,
-            temperature: 0.6,
+
+        // const completion = await openai.createCompletion({
+        //     model: "text-davinci-003",
+        //     prompt: generateAnimalPrompt ? generatePrompt(input) : input,
+        //     temperature: 0.6,
+        // });
+        //result.data.result = completion.data.choices[0].text;
+
+        const completion = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: generateAnimalPrompt ? generatePrompt(input) : input }],
         });
+
+        if(completion.data.choices[0].message != null)
+
+        result.data.result = completion.data.choices[0].message.content;
+
         result.status = 200;
-        result.data.result = completion.data.choices[0].text;
-    } catch (error:any) {
+
+    } 
+    catch (error: any) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
             console.error(error.response.status, error.response.data);
