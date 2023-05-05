@@ -20,7 +20,7 @@ export default function Dalle(props: DalleInput): JSX.Element {
         const response = await openai.createImage({
           prompt: props.persona,
           n: 1,
-          size: "1024x1024",
+          size: "512x512",
         });
         return response.data.data[0].url;
       };
