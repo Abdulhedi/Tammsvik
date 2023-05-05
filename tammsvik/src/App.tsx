@@ -7,6 +7,7 @@ import carrot from "./assets/Carrot-Digital-black.svg";
 import "./App.css";
 import Chatgpt from "./pages/chatgpt";
 import Bravo from "./pages/bravo";
+import Dalle from "./components/dalle";
 
 function App() {
   let navigate = useNavigate();
@@ -27,6 +28,9 @@ function App() {
           </div>
           <div onClick={() => handleNavigate("/bravo")}>
             Bravo
+          </div>
+          <div onClick={() => handleNavigate("/dalle")}>
+            Dall-e
           </div>
         </div>
       </header>
