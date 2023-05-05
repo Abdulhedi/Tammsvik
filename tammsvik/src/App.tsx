@@ -6,6 +6,7 @@ import Hue from "./pages/hue";
 import carrot from "./assets/Carrot-Digital-black.svg";
 import "./App.css";
 import Chatgpt from "./pages/chatgpt";
+import Bravo from "./pages/bravo";
 
 function App() {
   let navigate = useNavigate();
@@ -24,6 +25,9 @@ function App() {
           <div onClick={() => handleNavigate("/chatgpt")}>
             Chat GPT exempel 2
           </div>
+          <div onClick={() => handleNavigate("/bravo")}>
+            Bravo
+          </div>
         </div>
       </header>
       <main className="App-body">
@@ -32,6 +36,7 @@ function App() {
           <Route path={`hue`} element={<Hue />} />
           <Route path={`chat`} element={<Chat />} />
           <Route path={`chatgpt`} element={<Chatgpt />} />
+          <Route path={`bravo`} element={<Bravo />} />
         </Routes>
       </main>
     </div>
