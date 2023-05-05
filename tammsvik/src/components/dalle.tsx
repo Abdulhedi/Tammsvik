@@ -17,7 +17,7 @@ const response = async () => {await openai.createImage({
     size: "1024x1024",
 });
 };
-  const image_url = response.data.data[0].url;
+//   const image_url = response.data.data[0].url;
 
 export default function Dalle(persona: DalleInput): JSX.Element{
 

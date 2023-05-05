@@ -7,8 +7,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export interface IPersonaProps {
-    setPersona?: (persona: string) => void;
-    personaIsReady?: () => boolean;
+    setPersona: (persona: string) => void;
     topic?: string;
     isPro?: boolean
 };
@@ -35,7 +34,7 @@ export default function Persona(props: IPersonaProps): JSX.Element {
             });
 
             if (completion.data.choices[0].message != null) {
-                //props.setPersona(completion.data.choices[0].message.content);
+                props.setPersona(completion.data.choices[0].message.content);
                 setPersona(completion.data.choices[0].message.content)
             }
         }
