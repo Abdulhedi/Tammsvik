@@ -7,11 +7,16 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
-import { padding } from "@mui/system";
-
+import noimage from '../assets/noimage.png';
 export interface DalleInput {
   persona: string;
 }
+
+const divStyle = {
+  color: 'blue',
+  backgroundImage: 'url(' + imgUrl + ')',
+};
+
 
 const configuration = new Configuration({
   apiKey: "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",
@@ -25,7 +30,7 @@ export default function Dalle(props: DalleInput): JSX.Element {
 
   const generateImage = async () => {
     const response = await openai.createImage({
-      prompt: props.persona,
+      prompt: `Create a realistic image of a superhero in a ${environment} environment. ${props.persona}`,
       n: 1,
       size: "512x512",
     });
@@ -55,6 +60,7 @@ export default function Dalle(props: DalleInput): JSX.Element {
           <MenuItem value={"Meadow"}>Meadow</MenuItem>
           <MenuItem value={"Office"}>Office</MenuItem>
           <MenuItem value={"Urban City"}>Urban City</MenuItem>
+          <MenuItem value={"Plaza"}>Plaza</MenuItem>
         </Select>
       </FormControl>
       <Button onClick={handleGenerateClick} variant="contained" color="success">
@@ -66,7 +72,7 @@ export default function Dalle(props: DalleInput): JSX.Element {
         </div>
       ) : (
         <div>
-          <h1>LOADING PICTURE </h1>
+          <img src={noimage} alt="Generated Image" />
         </div>
       )}
     </div>
