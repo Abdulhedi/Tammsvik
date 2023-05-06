@@ -1,21 +1,21 @@
 import { Configuration, OpenAIApi } from "openai";
 import { resolve } from "path";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-
-export interface DalleInput{
-    persona:string;
+export interface DalleInput {
+  persona: string;
 }
 
 const configuration = new Configuration({
-    apiKey: "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",
+  apiKey: "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",
 });
 
 const openai = new OpenAIApi(configuration);
 
+export default function Dalle(input: DalleInput): JSX.Element {
+  const [imageUrl, setImageUrl] = useState("");
 
-export default function Dalle(props: DalleInput): JSX.Element {
-
+  useEffect(() => {
     const generateImage = async () => {
         const response = await openai.createImage({
           prompt: props.persona,
@@ -33,10 +33,23 @@ export default function Dalle(props: DalleInput): JSX.Element {
       }
   };
 
+    generateImage().then((res) => {
+      setImageUrl(res);
+    });
+  }, [input.persona]);
+
   return (
     <div>
-      <button onClick={handleGenerateClick}>Generate Image</button>
-      {imageUrl && <img src={imageUrl} alt="Generated Image" />}
+      {imageUrl ? (
+        <div>
+          <img src={imageUrl} alt="Generated Image" />
+        </div>
+      ) : (
+        <div>
+          <h1>LOADING PICTURE </h1>
+        </div>
+      )}
+      {/* <button onClick={test}>Generate Image</button> */}
     </div>
   );
 }
