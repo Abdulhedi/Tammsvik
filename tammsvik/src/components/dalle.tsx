@@ -12,31 +12,31 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-export default function Dalle(input: DalleInput): JSX.Element {
+export default function Dalle(props: DalleInput): JSX.Element {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     const generateImage = async () => {
-        const response = await openai.createImage({
-          prompt: props.persona,
-          n: 1,
-          size: "512x512",
-        });
-        return response.data.data[0].url;
-      };
-      
-  const [imageUrl, setImageUrl] = useState("");
-  const handleGenerateClick = async () => {
-    let url = await generateImage();
-    if (url !== undefined) {
+      const response = await openai.createImage({
+        prompt: props.persona,
+        n: 1,
+        size: "512x512",
+      });
+      return response.data.data[0].url;
+    };
+
+    const [imageUrl, setImageUrl] = useState("");
+    const handleGenerateClick = async () => {
+      let url = await generateImage();
+      if (url !== undefined) {
         setImageUrl(url);
       }
-  };
+    };
 
     generateImage().then((res) => {
       setImageUrl(res);
     });
-  }, [input.persona]);
+  }, [props.persona]);
 
   return (
     <div>
