@@ -25,7 +25,6 @@ export default function Dalle(props: DalleInput): JSX.Element {
       return response.data.data[0].url;
     };
 
-    const [imageUrl, setImageUrl] = useState("");
     const handleGenerateClick = async () => {
       let url = await generateImage();
       if (url !== undefined) {
@@ -49,7 +48,6 @@ export default function Dalle(props: DalleInput): JSX.Element {
           <h1>LOADING PICTURE </h1>
         </div>
       )}
-      {/* <button onClick={test}>Generate Image</button> */}
     </div>
   );
 }
