@@ -4,6 +4,7 @@ import { Button, TextField, Box } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import LinearProgress from '@mui/material/LinearProgress';
 import { indigo } from '@mui/material/colors';
+import topic from "./topic";
 
 const color = indigo[900];
 
@@ -31,13 +32,21 @@ export default function Persona(props: IPersonaProps): JSX.Element {
 
     // }, [name, persona])
 
+    useEffect(()=> {
+        console.log("useeffect körs")
+        if(persona === ""){
+            console.log("kör!")
+            createPersona()
+        }
+    },[props.topic])
+
     async function createPersona(): Promise<void> {
         if (name !== "" && description !== "") {
 
             setCreatingPersona(true);
             const completion = await openai.createChatCompletion({
                 model: "gpt-3.5-turbo",
-                messages: [{ role: "user", content: `Create a persona description from the following, name ${name}, is ${props.isPro ? " is pro" : "is against"} ${props.topic} and personel description ${description}` }],
+                messages: [{ role: "user", content: `Create a persona description from the following, name ${name}, is ${props.isPro ? " is pro" : "is against"} ${props.topic} and personel description ${description}. with a maximum of 400 characters` }],
             });
 
             if (completion.data.choices[0].message != null) {
@@ -52,14 +61,16 @@ export default function Persona(props: IPersonaProps): JSX.Element {
         <div>
             <TextField placeholder="Name" required value={name} onChange={(event) => { setName(event.target.value) }} />
             <TextField placeholder="Description" value={description} onChange={(event) => { setDescription(event.target.value) }} />
-            <Button onClick={createPersona}><AddCircleOutlineOutlinedIcon /> Create </Button>
-            <Box sx={{
+            {/* <Button onClick={createPersona}><AddCircleOutlineOutlinedIcon /> Create </Button> */}
+            <Box 
+            sx={{
                 bgcolor: indigo[900],
                 borderRadius: 3,
                 padding: 2,
-                width: '400px',
+                width: '500px',
                 xheight: '200px',
-                color: 'white'
+                color: 'white',
+                margin: "0 auto",
             }}>
                 {creatingPersona ?
                     <LinearProgress />
