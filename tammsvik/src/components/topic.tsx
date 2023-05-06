@@ -18,16 +18,9 @@ async function CreateTopic(): Promise<void>{
 }
 
     return(
-        <div>
+        <Box  sx={{marginTop:"20px"}}>
             <TextField placeholder="Topic" type="text" onChange={(event) => { setTopic(event.target.value) }} />
-            <Button onClick={CreateTopic}  sx={{
-                bgcolor: indigo[900],
-                borderRadius: 3,
-                padding: 2,
-                width: '200px',
-                xheight: '200px',
-                color: 'white'
-            }} >Submit</Button>
-        </div>
+            <Button onClick={CreateTopic} ><AddCircleOutlineOutlinedIcon /> Create personas</Button>
+        </Box>
     )
 }
