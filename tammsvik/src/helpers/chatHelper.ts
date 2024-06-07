@@ -5,7 +5,7 @@ export async function askQuestion(question: string) {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer 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`,
+        Authorization: `PUT API KEY HERE`,
       },
       body: JSON.stringify({
         model: "text-davinci-003",

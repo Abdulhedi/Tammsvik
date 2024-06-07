@@ -1,26 +1,28 @@
 import React, { useState } from "react";
 import { Button, TextField, Box } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import LinearProgress from '@mui/material/LinearProgress';
-import { indigo } from '@mui/material/colors';
 
-
-export interface ITopic{
-    setTopic:(topic : string) => void;
+export interface ITopic {
+    setTopic: (topic: string) => void;
 }
 
+export default function Topic(props: ITopic): JSX.Element {
+    const [topicValue, setTopicValue] = useState<string>("");
 
-export default function topic(props: ITopic): JSX.Element{
-    const [topic, setTopic] = useState<string>("");
+    async function createTopic(): Promise<void> {
+        props.setTopic(topicValue);
+    }
 
-async function CreateTopic(): Promise<void>{
-    props.setTopic(topic);
-}
-
-    return(
-        <Box  sx={{marginTop:"20px"}}>
-            <TextField placeholder="Topic" type="text" onChange={(event) => { setTopic(event.target.value) }} />
-            <Button onClick={CreateTopic} ><AddCircleOutlineOutlinedIcon /> Create personas</Button>
+    return (
+        <Box sx={{ marginTop: "20px" }}>
+            <TextField
+                placeholder="Topic"
+                type="text"
+                onChange={(event) => { setTopicValue(event.target.value) }}
+            />
+            <Button onClick={createTopic}>
+                <AddCircleOutlineOutlinedIcon /> Create personas
+            </Button>
         </Box>
-    )
+    );
 }

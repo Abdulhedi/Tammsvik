@@ -9,7 +9,7 @@ import topic from "./topic";
 const color = indigo[900];
 
 const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: "PUT API KEY HERE",
 });
 const openai = new OpenAIApi(configuration);
 

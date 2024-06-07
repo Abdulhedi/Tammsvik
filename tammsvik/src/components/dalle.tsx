@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   FormControl,
   InputLabel,
@@ -7,19 +7,13 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
-import noimage from '../assets/noimage.png';
+import noimage from "../assets/noimage.png";
 export interface DalleInput {
   persona: string;
 }
 
-const divStyle = {
-  color: 'blue',
-  backgroundImage: 'url(' + imgUrl + ')',
-};
-
-
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "PUT API KEY HERE",
 });
 
 const openai = new OpenAIApi(configuration);
