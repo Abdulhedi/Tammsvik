@@ -3,7 +3,7 @@ import { Configuration, OpenAIApi } from "openai";
 
 
 const configuration = new Configuration({
-    apiKey: "PUT API KEY HERE",
+    apiKey: "sk-proj-Ji2FUIkMUVLetUJxXNM4T3BlbkFJeejjqkC2x0w5Dky5KCOJ",
 });
 const openai = new OpenAIApi(configuration);
 
@@ -31,13 +31,6 @@ export async function CallChatGPT(input: string, generateAnimalPrompt = true): P
     }
 
     try {
-
-        // const completion = await openai.createCompletion({
-        //     model: "text-davinci-003",
-        //     prompt: generateAnimalPrompt ? generatePrompt(input) : input,
-        //     temperature: 0.6,
-        // });
-        //result.data.result = completion.data.choices[0].text;
 
         const completion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",

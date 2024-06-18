@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { askQuestion } from "../helpers/chatHelper";
 
-const Chatgpt: React.FC<any> = () => {
+const Chatgpt: React.FC = () => {
   const [output, setOutput] = useState<string>("");
-  const [response, setResponse] = useState<string>("");
   const [question, setQuestion] = useState<string>("");
-  const handleAskQuestion = () => {
-    setOutput(`${output} \nMe: ${question}`);
-    const data = askQuestion(question);
-    data.then((d: any) => {
-      if (d) {
-        d.choices && setResponse(d.choices[0].text);
-      } else {
-        setResponse("Error...");
-      }
-    });
+
+  const handleAskQuestion = async () => {
+    const updatedOutput = `${output}\nMe: ${question}`;
+    setOutput(updatedOutput);
+
+    try {
+      const data = await askQuestion(question);
+      const response = data?.choices?.[0]?.message?.content || "Error...";
+      setOutput((prevOutput) => `${prevOutput}\nChat GPT: ${response}`);
+    } catch (error) {
+      console.error("Error asking question:", error);
+      setOutput((prevOutput) => `${prevOutput}\nChat GPT: Error...`);
+    }
   };
-  useEffect(() => {
-    if (response) setOutput(`${output} \nChat GPT: ${response}`);
-  }, [response]);
+
   return (
-    <div className={"chatWrapper"}>
+    <div className="chatWrapper">
       <h1>Chat GPT exempel</h1>
-      <textarea id={"response"} disabled value={output}></textarea>
+      <textarea id="response" disabled value={output}></textarea>
       <input
         type="text"
-        id={"question"}
+        id="question"
         placeholder="Skriv din fråga här..."
-        onKeyUp={(e) => {
-          setQuestion(e.currentTarget.value);
-        }}
+        value={question}
+        onChange={(e) => setQuestion(e.target.value)}
       />
-      <button onClick={() => handleAskQuestion()}>Fråga!</button>
+      <button onClick={handleAskQuestion}>Fråga!</button>
     </div>
   );
 };
+
 export default Chatgpt;

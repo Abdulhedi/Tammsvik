@@ -13,7 +13,7 @@ export interface DalleInput {
 }
 
 const configuration = new Configuration({
-  apiKey: "PUT API KEY HERE",
+  apiKey: "sk-proj-Ji2FUIkMUVLetUJxXNM4T3BlbkFJeejjqkC2x0w5Dky5KCOJ",
 });
 
 const openai = new OpenAIApi(configuration);
@@ -31,7 +31,6 @@ export default function Dalle(props: DalleInput): JSX.Element {
     return response.data.data[0].url;
   };
   const handleGenerateClick = async () => {
-    console.log(props.persona);
     let url = await generateImage();
     if (url !== undefined) {
       setImageUrl(url);

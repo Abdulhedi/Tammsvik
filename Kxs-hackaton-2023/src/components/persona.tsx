@@ -1,15 +1,13 @@
 import { Configuration, OpenAIApi } from "openai";
 import React, { useState, useEffect } from "react";
-import { Button, TextField, Box } from '@mui/material';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { TextField, Box } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 import { indigo } from '@mui/material/colors';
-import topic from "./topic";
 
 const color = indigo[900];
 
 const configuration = new Configuration({
-    apiKey: "PUT API KEY HERE",
+    apiKey: "sk-proj-Ji2FUIkMUVLetUJxXNM4T3BlbkFJeejjqkC2x0w5Dky5KCOJ",
 });
 const openai = new OpenAIApi(configuration);
 
@@ -25,17 +23,9 @@ export default function Persona(props: IPersonaProps): JSX.Element {
     const [persona, setPersona] = useState<string>("");
     const [creatingPersona, setCreatingPersona] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     if (name !== "" && persona !== ""){
-
-    //     }
-
-    // }, [name, persona])
 
     useEffect(()=> {
-        console.log("useeffect körs")
         if(persona === ""){
-            console.log("kör!")
             createPersona()
         }
     },[props.topic])
@@ -61,7 +51,6 @@ export default function Persona(props: IPersonaProps): JSX.Element {
         <div>
             <TextField placeholder="Name" required value={name} onChange={(event) => { setName(event.target.value) }} />
             <TextField placeholder="Description" value={description} onChange={(event) => { setDescription(event.target.value) }} />
-            {/* <Button onClick={createPersona}><AddCircleOutlineOutlinedIcon /> Create </Button> */}
             <Box 
             sx={{
                 bgcolor: indigo[900],
