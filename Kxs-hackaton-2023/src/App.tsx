@@ -7,6 +7,9 @@ import carrot from "./assets/Carrot-Digital-black.svg";
 import "./App.css";
 import Chatgpt from "./pages/chatgpt";
 import Bravo from "./pages/bravo";
+import Answers from "./pages/answers";
+import { AnswerProvider } from './providers/hueProvider';
+import Echo from "./pages/echo";
 
 function App() {
   let navigate = useNavigate();
@@ -15,6 +18,7 @@ function App() {
   };
   return (
     <div className="App">
+      <AnswerProvider>
       <header>
         <div className="menu">
           <div onClick={() => handleNavigate("/")} className={"homeAnchor"}>
@@ -25,10 +29,9 @@ function App() {
           <div onClick={() => handleNavigate("/chatgpt")}>
             Chat GPT exempel 2
           </div>
-          <div onClick={() => handleNavigate("/bravo")}>
-            Bravo
-          </div>
-
+          <div onClick={() => handleNavigate("/bravo")}>Bravo</div>
+          <div onClick={() => handleNavigate("/answers")}>Photo gallery </div>
+          <div onClick={() => handleNavigate("/echo")}>Echo </div>
         </div>
       </header>
       <main className="App-body">
@@ -38,8 +41,11 @@ function App() {
           <Route path={`chat`} element={<Chat />} />
           <Route path={`chatgpt`} element={<Chatgpt />} />
           <Route path={`bravo`} element={<Bravo />} />
+          <Route path={`answers`} element={<Answers />} />
+          <Route path={`echo`} element={<Echo />} />
         </Routes>
       </main>
+      </AnswerProvider>
     </div>
   );
 }
